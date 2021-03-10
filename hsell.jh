@@ -15,5 +15,5 @@ entity Comments {
 }
 
 relationship OneToMany {
-  News to Comments{news}
+  News{comments} to Comments{news}
 }
