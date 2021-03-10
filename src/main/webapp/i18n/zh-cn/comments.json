@@ -1,0 +1,26 @@
+{
+  "hsellApp": {
+    "comments": {
+      "home": {
+        "title": "Comments",
+        "createLabel": "创建新 Comments",
+        "createOrEditLabel": "创建或编辑 Comments",
+        "notFound": "No Comments found"
+      },
+      "created": "Comments {{ param }} 创建成功",
+      "updated": "Comments {{ param }} 更新成功",
+      "deleted": "Comments {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Comments {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Comments"
+      },
+      "content": "Content",
+      "name": "Name",
+      "createTime": "Create Time",
+      "updateTime": "Update Time",
+      "news": "News"
+    }
+  }
+}

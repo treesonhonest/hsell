@@ -8,6 +8,7 @@
       "entities": {
         "main": "数据",
         "news": "News",
+        "comments": "Comments",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

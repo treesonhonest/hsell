@@ -13,9 +13,9 @@ import reducer, {
   getEntity,
   updateEntity,
   reset,
-} from 'app/entities/news/news.reducer';
+} from 'app/entities/comments/comments.reducer';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { INews, defaultValue } from 'app/shared/model/news.model';
+import { IComments, defaultValue } from 'app/shared/model/comments.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {
@@ -29,7 +29,7 @@ describe('Entities reducer tests', () => {
   const initialState = {
     loading: false,
     errorMessage: null,
-    entities: [] as ReadonlyArray<INews>,
+    entities: [] as ReadonlyArray<IComments>,
     entity: defaultValue,
     updating: false,
     updateSuccess: false,
@@ -60,7 +60,7 @@ describe('Entities reducer tests', () => {
 
   describe('Requests', () => {
     it('should set state to loading', () => {
-      testMultipleTypes([REQUEST(ACTION_TYPES.FETCH_NEWS_LIST), REQUEST(ACTION_TYPES.FETCH_NEWS)], {}, state => {
+      testMultipleTypes([REQUEST(ACTION_TYPES.FETCH_COMMENTS_LIST), REQUEST(ACTION_TYPES.FETCH_COMMENTS)], {}, state => {
         expect(state).toMatchObject({
           errorMessage: null,
           updateSuccess: false,
@@ -71,7 +71,7 @@ describe('Entities reducer tests', () => {
 
     it('should set state to updating', () => {
       testMultipleTypes(
-        [REQUEST(ACTION_TYPES.CREATE_NEWS), REQUEST(ACTION_TYPES.UPDATE_NEWS), REQUEST(ACTION_TYPES.DELETE_NEWS)],
+        [REQUEST(ACTION_TYPES.CREATE_COMMENTS), REQUEST(ACTION_TYPES.UPDATE_COMMENTS), REQUEST(ACTION_TYPES.DELETE_COMMENTS)],
         {},
         state => {
           expect(state).toMatchObject({
@@ -101,11 +101,11 @@ describe('Entities reducer tests', () => {
     it('should set a message in errorMessage', () => {
       testMultipleTypes(
         [
-          FAILURE(ACTION_TYPES.FETCH_NEWS_LIST),
-          FAILURE(ACTION_TYPES.FETCH_NEWS),
-          FAILURE(ACTION_TYPES.CREATE_NEWS),
-          FAILURE(ACTION_TYPES.UPDATE_NEWS),
-          FAILURE(ACTION_TYPES.DELETE_NEWS),
+          FAILURE(ACTION_TYPES.FETCH_COMMENTS_LIST),
+          FAILURE(ACTION_TYPES.FETCH_COMMENTS),
+          FAILURE(ACTION_TYPES.CREATE_COMMENTS),
+          FAILURE(ACTION_TYPES.UPDATE_COMMENTS),
+          FAILURE(ACTION_TYPES.DELETE_COMMENTS),
         ],
         'error message',
         state => {
@@ -124,7 +124,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }] };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_COMMENTS_LIST),
           payload,
         })
       ).toEqual({
@@ -138,7 +138,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: { 1: 'fake1' } };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.FETCH_NEWS),
+          type: SUCCESS(ACTION_TYPES.FETCH_COMMENTS),
           payload,
         })
       ).toEqual({
@@ -152,7 +152,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: 'fake payload' };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.CREATE_NEWS),
+          type: SUCCESS(ACTION_TYPES.CREATE_COMMENTS),
           payload,
         })
       ).toEqual({
@@ -166,7 +166,7 @@ describe('Entities reducer tests', () => {
     it('should delete entity', () => {
       const payload = 'fake payload';
       const toTest = reducer(undefined, {
-        type: SUCCESS(ACTION_TYPES.DELETE_NEWS),
+        type: SUCCESS(ACTION_TYPES.DELETE_COMMENTS),
         payload,
       });
       expect(toTest).toMatchObject({
@@ -189,79 +189,79 @@ describe('Entities reducer tests', () => {
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_NEWS_LIST actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_COMMENTS_LIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: REQUEST(ACTION_TYPES.FETCH_COMMENTS_LIST),
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_COMMENTS_LIST),
           payload: resolvedObject,
         },
       ];
       await store.dispatch(getEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_NEWS actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_COMMENTS actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_NEWS),
+          type: REQUEST(ACTION_TYPES.FETCH_COMMENTS),
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_NEWS),
+          type: SUCCESS(ACTION_TYPES.FETCH_COMMENTS),
           payload: resolvedObject,
         },
       ];
       await store.dispatch(getEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.CREATE_NEWS actions', async () => {
+    it('dispatches ACTION_TYPES.CREATE_COMMENTS actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.CREATE_NEWS),
+          type: REQUEST(ACTION_TYPES.CREATE_COMMENTS),
         },
         {
-          type: SUCCESS(ACTION_TYPES.CREATE_NEWS),
+          type: SUCCESS(ACTION_TYPES.CREATE_COMMENTS),
           payload: resolvedObject,
         },
         {
-          type: REQUEST(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: REQUEST(ACTION_TYPES.FETCH_COMMENTS_LIST),
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_COMMENTS_LIST),
           payload: resolvedObject,
         },
       ];
       await store.dispatch(createEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.UPDATE_NEWS actions', async () => {
+    it('dispatches ACTION_TYPES.UPDATE_COMMENTS actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.UPDATE_NEWS),
+          type: REQUEST(ACTION_TYPES.UPDATE_COMMENTS),
         },
         {
-          type: SUCCESS(ACTION_TYPES.UPDATE_NEWS),
+          type: SUCCESS(ACTION_TYPES.UPDATE_COMMENTS),
           payload: resolvedObject,
         },
       ];
       await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.DELETE_NEWS actions', async () => {
+    it('dispatches ACTION_TYPES.DELETE_COMMENTS actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.DELETE_NEWS),
+          type: REQUEST(ACTION_TYPES.DELETE_COMMENTS),
         },
         {
-          type: SUCCESS(ACTION_TYPES.DELETE_NEWS),
+          type: SUCCESS(ACTION_TYPES.DELETE_COMMENTS),
           payload: resolvedObject,
         },
         {
-          type: REQUEST(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: REQUEST(ACTION_TYPES.FETCH_COMMENTS_LIST),
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_NEWS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_COMMENTS_LIST),
           payload: resolvedObject,
         },
       ];
@@ -276,25 +276,6 @@ describe('Entities reducer tests', () => {
       ];
       await store.dispatch(reset());
       expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  describe('blobFields', () => {
-    it('should properly set a blob in state.', () => {
-      const payload = { name: 'fancyBlobName', data: 'fake data', contentType: 'fake dataType' };
-      expect(
-        reducer(undefined, {
-          type: ACTION_TYPES.SET_BLOB,
-          payload,
-        })
-      ).toEqual({
-        ...initialState,
-        entity: {
-          ...initialState.entity,
-          fancyBlobName: payload.data,
-          fancyBlobNameContentType: payload.contentType,
-        },
-      });
     });
   });
 });

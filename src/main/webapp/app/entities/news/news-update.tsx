@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './news.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './news.reducer';
 import { INews } from 'app/shared/model/news.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -18,6 +18,8 @@ export const NewsUpdate = (props: INewsUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   const { newsEntity, loading, updating } = props;
+
+  const { content } = newsEntity;
 
   const handleClose = () => {
     props.history.push('/news');
@@ -31,6 +33,14 @@ export const NewsUpdate = (props: INewsUpdateProps) => {
     }
   }, []);
 
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
+
   useEffect(() => {
     if (props.updateSuccess) {
       handleClose();
@@ -38,6 +48,10 @@ export const NewsUpdate = (props: INewsUpdateProps) => {
   }, [props.updateSuccess]);
 
   const saveEntity = (event, errors, values) => {
+    values.topTime = convertDateTimeToServer(values.topTime);
+    values.createTime = convertDateTimeToServer(values.createTime);
+    values.updateTime = convertDateTimeToServer(values.updateTime);
+
     if (errors.length === 0) {
       const entity = {
         ...newsEntity,
@@ -85,7 +99,7 @@ export const NewsUpdate = (props: INewsUpdateProps) => {
                 <Label id="contentLabel" for="news-content">
                   <Translate contentKey="hsellApp.news.content">Content</Translate>
                 </Label>
-                <AvField id="news-content" type="text" name="content" />
+                <AvInput id="news-content" type="textarea" name="content" />
               </AvGroup>
               <AvGroup check>
                 <Label id="topLabel">
@@ -97,19 +111,40 @@ export const NewsUpdate = (props: INewsUpdateProps) => {
                 <Label id="topTimeLabel" for="news-topTime">
                   <Translate contentKey="hsellApp.news.topTime">Top Time</Translate>
                 </Label>
-                <AvField id="news-topTime" type="date" className="form-control" name="topTime" />
+                <AvInput
+                  id="news-topTime"
+                  type="datetime-local"
+                  className="form-control"
+                  name="topTime"
+                  placeholder={'YYYY-MM-DD HH:mm'}
+                  value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.newsEntity.topTime)}
+                />
               </AvGroup>
               <AvGroup>
                 <Label id="createTimeLabel" for="news-createTime">
                   <Translate contentKey="hsellApp.news.createTime">Create Time</Translate>
                 </Label>
-                <AvField id="news-createTime" type="date" className="form-control" name="createTime" />
+                <AvInput
+                  id="news-createTime"
+                  type="datetime-local"
+                  className="form-control"
+                  name="createTime"
+                  placeholder={'YYYY-MM-DD HH:mm'}
+                  value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.newsEntity.createTime)}
+                />
               </AvGroup>
               <AvGroup>
                 <Label id="updateTimeLabel" for="news-updateTime">
                   <Translate contentKey="hsellApp.news.updateTime">Update Time</Translate>
                 </Label>
-                <AvField id="news-updateTime" type="date" className="form-control" name="updateTime" />
+                <AvInput
+                  id="news-updateTime"
+                  type="datetime-local"
+                  className="form-control"
+                  name="updateTime"
+                  placeholder={'YYYY-MM-DD HH:mm'}
+                  value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.newsEntity.updateTime)}
+                />
               </AvGroup>
               <AvGroup>
                 <Label id="readCountLabel" for="news-readCount">
@@ -148,6 +183,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };
