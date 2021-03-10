@@ -1,9 +1,19 @@
 entity News{
 	title String,
-    content String,
+    content TextBlob,
     top Boolean,
-    topTime LocalDate,
-    createTime LocalDate,
-    updateTime LocalDate,
+    topTime Instant,
+    createTime Instant,
+    updateTime Instant,
     readCount Long
+}
+entity Comments {
+	content String,
+    name String,
+    createTime Instant,
+    updateTime Instant,
+}
+
+relationship ManyToOne {
+  Comments{News(title)} to News
 }
