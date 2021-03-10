@@ -1,0 +1,28 @@
+{
+  "hsellApp": {
+    "news": {
+      "home": {
+        "title": "News",
+        "createLabel": "创建新 News",
+        "createOrEditLabel": "创建或编辑 News",
+        "notFound": "No News found"
+      },
+      "created": "News {{ param }} 创建成功",
+      "updated": "News {{ param }} 更新成功",
+      "deleted": "News {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 News {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "News"
+      },
+      "title": "Title",
+      "content": "Content",
+      "top": "Top",
+      "topTime": "Top Time",
+      "createTime": "Create Time",
+      "updateTime": "Update Time",
+      "readCount": "Read Count"
+    }
+  }
+}
