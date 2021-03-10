@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A News.
@@ -43,6 +45,10 @@ public class News implements Serializable {
 
     @Column(name = "read_count")
     private Long readCount;
+
+    @OneToMany(mappedBy = "news")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Comments> comments = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -142,6 +148,31 @@ public class News implements Serializable {
 
     public void setReadCount(Long readCount) {
         this.readCount = readCount;
+    }
+
+    public Set<Comments> getComments() {
+        return comments;
+    }
+
+    public News comments(Set<Comments> comments) {
+        this.comments = comments;
+        return this;
+    }
+
+    public News addComments(Comments comments) {
+        this.comments.add(comments);
+        comments.setNews(this);
+        return this;
+    }
+
+    public News removeComments(Comments comments) {
+        this.comments.remove(comments);
+        comments.setNews(null);
+        return this;
+    }
+
+    public void setComments(Set<Comments> comments) {
+        this.comments = comments;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
