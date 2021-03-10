@@ -1,0 +1,45 @@
+{
+  "name": "News",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "top",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "topTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "readCount",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210310100139",
+  "entityTableName": "news",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

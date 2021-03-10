@@ -1,0 +1,9 @@
+entity News{
+	title String,
+    content String,
+    top Boolean,
+    topTime LocalDate,
+    createTime LocalDate,
+    updateTime LocalDate,
+    readCount Long
+}
