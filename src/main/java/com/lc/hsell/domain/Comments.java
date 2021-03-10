@@ -1,5 +1,6 @@
 package com.lc.hsell.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,12 +10,12 @@ import java.io.Serializable;
 import java.time.Instant;
 
 /**
- * A News.
+ * A Comments.
  */
 @Entity
-@Table(name = "news")
+@Table(name = "comments")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class News implements Serializable {
+public class Comments implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,18 +23,11 @@ public class News implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
-    private String title;
-
-    @Lob
     @Column(name = "content")
     private String content;
 
-    @Column(name = "top")
-    private Boolean top;
-
-    @Column(name = "top_time")
-    private Instant topTime;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "create_time")
     private Instant createTime;
@@ -41,8 +35,9 @@ public class News implements Serializable {
     @Column(name = "update_time")
     private Instant updateTime;
 
-    @Column(name = "read_count")
-    private Long readCount;
+    @ManyToOne
+    @JsonIgnoreProperties(value = "comments", allowSetters = true)
+    private News news;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -53,24 +48,11 @@ public class News implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public News title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
 
-    public News content(String content) {
+    public Comments content(String content) {
         this.content = content;
         return this;
     }
@@ -79,37 +61,24 @@ public class News implements Serializable {
         this.content = content;
     }
 
-    public Boolean isTop() {
-        return top;
+    public String getName() {
+        return name;
     }
 
-    public News top(Boolean top) {
-        this.top = top;
+    public Comments name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setTop(Boolean top) {
-        this.top = top;
-    }
-
-    public Instant getTopTime() {
-        return topTime;
-    }
-
-    public News topTime(Instant topTime) {
-        this.topTime = topTime;
-        return this;
-    }
-
-    public void setTopTime(Instant topTime) {
-        this.topTime = topTime;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Instant getCreateTime() {
         return createTime;
     }
 
-    public News createTime(Instant createTime) {
+    public Comments createTime(Instant createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -122,7 +91,7 @@ public class News implements Serializable {
         return updateTime;
     }
 
-    public News updateTime(Instant updateTime) {
+    public Comments updateTime(Instant updateTime) {
         this.updateTime = updateTime;
         return this;
     }
@@ -131,17 +100,17 @@ public class News implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getReadCount() {
-        return readCount;
+    public News getNews() {
+        return news;
     }
 
-    public News readCount(Long readCount) {
-        this.readCount = readCount;
+    public Comments news(News news) {
+        this.news = news;
         return this;
     }
 
-    public void setReadCount(Long readCount) {
-        this.readCount = readCount;
+    public void setNews(News news) {
+        this.news = news;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -150,10 +119,10 @@ public class News implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof News)) {
+        if (!(o instanceof Comments)) {
             return false;
         }
-        return id != null && id.equals(((News) o).id);
+        return id != null && id.equals(((Comments) o).id);
     }
 
     @Override
@@ -164,15 +133,12 @@ public class News implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "News{" +
+        return "Comments{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
             ", content='" + getContent() + "'" +
-            ", top='" + isTop() + "'" +
-            ", topTime='" + getTopTime() + "'" +
+            ", name='" + getName() + "'" +
             ", createTime='" + getCreateTime() + "'" +
             ", updateTime='" + getUpdateTime() + "'" +
-            ", readCount=" + getReadCount() +
             "}";
     }
 }

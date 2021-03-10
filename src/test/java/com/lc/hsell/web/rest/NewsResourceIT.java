@@ -17,9 +17,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,14 +46,14 @@ public class NewsResourceIT {
     private static final Boolean DEFAULT_TOP = false;
     private static final Boolean UPDATED_TOP = true;
 
-    private static final LocalDate DEFAULT_TOP_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_TOP_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_TOP_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_TOP_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_CREATE_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATE_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_CREATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_UPDATE_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_UPDATE_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_UPDATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_UPDATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Long DEFAULT_READ_COUNT = 1L;
     private static final Long UPDATED_READ_COUNT = 2L;
@@ -163,7 +164,7 @@ public class NewsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(news.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT)))
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
             .andExpect(jsonPath("$.[*].top").value(hasItem(DEFAULT_TOP.booleanValue())))
             .andExpect(jsonPath("$.[*].topTime").value(hasItem(DEFAULT_TOP_TIME.toString())))
             .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
@@ -183,7 +184,7 @@ public class NewsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(news.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT))
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
             .andExpect(jsonPath("$.top").value(DEFAULT_TOP.booleanValue()))
             .andExpect(jsonPath("$.topTime").value(DEFAULT_TOP_TIME.toString()))
             .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))

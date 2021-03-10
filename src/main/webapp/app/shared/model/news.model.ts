@@ -3,7 +3,7 @@ import { Moment } from 'moment';
 export interface INews {
   id?: number;
   title?: string;
-  content?: string;
+  content?: any;
   top?: boolean;
   topTime?: string;
   createTime?: string;

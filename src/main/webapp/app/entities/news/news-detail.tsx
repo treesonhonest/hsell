@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -48,19 +48,19 @@ export const NewsDetail = (props: INewsDetailProps) => {
               <Translate contentKey="hsellApp.news.topTime">Top Time</Translate>
             </span>
           </dt>
-          <dd>{newsEntity.topTime ? <TextFormat value={newsEntity.topTime} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}</dd>
+          <dd>{newsEntity.topTime ? <TextFormat value={newsEntity.topTime} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
           <dt>
             <span id="createTime">
               <Translate contentKey="hsellApp.news.createTime">Create Time</Translate>
             </span>
           </dt>
-          <dd>{newsEntity.createTime ? <TextFormat value={newsEntity.createTime} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}</dd>
+          <dd>{newsEntity.createTime ? <TextFormat value={newsEntity.createTime} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
           <dt>
             <span id="updateTime">
               <Translate contentKey="hsellApp.news.updateTime">Update Time</Translate>
             </span>
           </dt>
-          <dd>{newsEntity.updateTime ? <TextFormat value={newsEntity.updateTime} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}</dd>
+          <dd>{newsEntity.updateTime ? <TextFormat value={newsEntity.updateTime} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
           <dt>
             <span id="readCount">
               <Translate contentKey="hsellApp.news.readCount">Read Count</Translate>
