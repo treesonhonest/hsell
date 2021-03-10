@@ -22,7 +22,8 @@
       "topTime": "Top Time",
       "createTime": "Create Time",
       "updateTime": "Update Time",
-      "readCount": "Read Count"
+      "readCount": "Read Count",
+      "comments": "Comments"
     }
   }
 }

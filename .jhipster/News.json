@@ -31,7 +31,14 @@
       "fieldType": "Long"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "comments",
+      "otherEntityRelationshipName": "news",
+      "relationshipName": "comments"
+    }
+  ],
   "changelogDate": "20210310100139",
   "entityTableName": "news",
   "dto": "no",
