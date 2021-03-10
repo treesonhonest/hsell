@@ -14,6 +14,6 @@ entity Comments {
     updateTime Instant,
 }
 
-relationship ManyToOne {
-  Comments{news} to News
+relationship OneToMany {
+  News to Comments{news}
 }
