@@ -66,7 +66,7 @@ export const Comments = (props: ICommentsProps) => {
                   <td>{comments.name}</td>
                   <td>{comments.createTime ? <TextFormat type="date" value={comments.createTime} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{comments.updateTime ? <TextFormat type="date" value={comments.updateTime} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{comments.news ? <Link to={`news/${comments.news.id}`}>{comments.news.id}</Link> : ''}</td>
+                  <td>{comments.news ? <Link to={`news/${comments.news.id}`}>{comments.news.title}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${comments.id}`} color="info" size="sm">

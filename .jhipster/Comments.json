@@ -24,7 +24,7 @@
       "otherEntityName": "news",
       "otherEntityRelationshipName": "comments",
       "relationshipName": "news",
-      "otherEntityField": "id"
+      "otherEntityField": "title"
     }
   ],
   "changelogDate": "20210310105444",

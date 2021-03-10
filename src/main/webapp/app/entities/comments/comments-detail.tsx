@@ -56,7 +56,7 @@ export const CommentsDetail = (props: ICommentsDetailProps) => {
           <dt>
             <Translate contentKey="hsellApp.comments.news">News</Translate>
           </dt>
-          <dd>{commentsEntity.news ? commentsEntity.news.id : ''}</dd>
+          <dd>{commentsEntity.news ? commentsEntity.news.title : ''}</dd>
         </dl>
         <Button tag={Link} to="/comments" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}
