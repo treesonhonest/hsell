@@ -130,7 +130,7 @@ export const CommentsUpdate = (props: ICommentsUpdateProps) => {
                   {news
                     ? news.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.title}
+                          {otherEntity.id}
                         </option>
                       ))
                     : null}
