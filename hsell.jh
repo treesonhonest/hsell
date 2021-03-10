@@ -15,5 +15,5 @@ entity Comments {
 }
 
 relationship ManyToOne {
-  Comments{News(title)} to News
+  Comments{news} to News
 }
